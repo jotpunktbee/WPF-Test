@@ -4,9 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:VM="clr-namespace:WpfApp1.ViewModel"
+        xmlns:V="clr-namespace:WpfApp1.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <VM:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type VM:UserControl1ViewModel}">
+            <V:UserControl1/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ContentControl Content="{Binding SelectedTemplate}" />
+        </Grid>
+        <Grid Grid.Row="1" Background="AliceBlue">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Content="{Binding Button1Content}" Command="{Binding Button1Command}" CommandParameter="Testsdt" />
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Content="{Binding Button2Content}" Command="{Binding ToggleExecuteCommand}" />
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Button>test3</Button>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
