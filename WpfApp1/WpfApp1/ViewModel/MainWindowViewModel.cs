@@ -5,13 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WpfApp1.Messaging;
+using WpfApp1.Service;
+using WpfApp1.View;
+using WpfApp1.ViewModel.Util;
 
 namespace WpfApp1.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private ICommand button1Command;
-        private ICommand toggleExecuteCommand;
+        private RelayCommand button1Command;
+        private RelayCommand toggleExecuteCommand;
 
         private bool canExecute = true;
 
@@ -39,7 +43,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public ICommand ToggleExecuteCommand
+        public RelayCommand ToggleExecuteCommand
         {
             get
             {
@@ -51,7 +55,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public ICommand Button1Command
+        public RelayCommand Button1Command
         {
             get
             {
@@ -62,6 +66,8 @@ namespace WpfApp1.ViewModel
                 button1Command = value;
             }
         }
+
+        public string Message { get; set; }
 
         private object _selectedTemplate;
         public object SelectedTemplate
@@ -79,8 +85,15 @@ namespace WpfApp1.ViewModel
 
         public MainWindowViewModel()
         {
-            Button1Command = new RelayCommand(ShowMessage, param => this.canExecute);
-            ToggleExecuteCommand = new RelayCommand(ChangeCanExecute);
+            Message = "Das ist mein Text!";
+            button1Command = new RelayCommand(SendMessage);
+            toggleExecuteCommand = new RelayCommand(ShowWindow);
+        }
+
+        private void ShowWindow(object obj)
+        {
+            var genericWindow = new WindowService();
+            genericWindow.ShowWindow(new Window1ViewModel());
         }
 
         public void ShowMessage(object obj)
@@ -94,5 +107,9 @@ namespace WpfApp1.ViewModel
             canExecute = !canExecute;
         }
 
+        private void SendMessage(object message)
+        {
+            Messenger.Instance.Send<string>(Message);
+        }
     }
 }

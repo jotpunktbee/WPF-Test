@@ -22,10 +22,5 @@ namespace WpfApp1.ViewModel
                 successCommand = value;
             }
         }
-
-        public SuccessViewModel(EventAggregator eventAggregator)
-        {
-            eventAggregator.Subscribe(this);
-        }
     }
 }
