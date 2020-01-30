@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace WpfApp1.ViewModel
+namespace WpfApp1.Messaging
 {
-    public class UserControl1ViewModel : ViewModelBase
+    interface IActionParameter
     {
+        void ExecuteWithParameter(object parameter);
     }
 }

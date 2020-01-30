@@ -93,5 +93,6 @@ namespace WpfApp1.ViewModel
         {
             canExecute = !canExecute;
         }
+
     }
 }
